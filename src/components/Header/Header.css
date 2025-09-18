@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background-color: #201f30;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.header nav a {
+    color: white;
+    margin: 0 10px;
+    font-size: x-large;
+    text-decoration: none;
+}
+
+.header nav a:hover {
+    text-decoration: underline;
+}

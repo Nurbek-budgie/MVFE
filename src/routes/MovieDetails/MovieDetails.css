@@ -1,0 +1,32 @@
+.movie-detail-container {
+    margin: 0 400px;
+    margin-bottom: 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.movie-trailer {
+    object-fit: block;
+    width: 100%;
+}
+
+.movie-detail-card {
+    position: relative;
+}
+
+.movie-detail-card h3 {
+    color: white;
+    position: relative;
+    bottom: 31px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 5px 5px;
+    font-weight: 100;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.movie-trailer {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
