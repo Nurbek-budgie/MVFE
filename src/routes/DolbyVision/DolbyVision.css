@@ -1,0 +1,40 @@
+.dolby-container {
+    margin: 0 400px;
+    background-color: black;
+}
+
+.dolby-text-container {
+    padding: 10px 15px;
+    text-align: center;
+    color: #02558b;
+}
+
+.dolby-text-container h1 {
+    font-weight: 100;
+}
+
+.dolby-text-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.dolby-text-buttons-container h3 {
+    font-weight: 100;
+}
+
+.dolby-text-buttons-container h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.dolby-screens-container {
+    padding: 20px;
+    color: #02558b;
+    font-weight: 100;
+}
+
+.dolby-screens-container h2 {
+    font-weight: 100;
+}

@@ -1,3 +1,4 @@
+import ScreenType from '../../components/ScreenType/ScreenType';
 import './IMax.css'
 import { useEffect, useState } from "react";
 
@@ -58,29 +59,9 @@ function IMax() {
             </div>
             <div className="imax-screens-container">
                 <h2>Today’s movie repertoire in the IMAX hall:</h2>
-                {screenType.map((theater) => (
-                    <div key={theater.cinemaId} className="imax-theater-container">
-                        <div className="imax-theater2-container">
-                            <h2>{theater.cinemaName}</h2>
-                            {theater.movies.map((movie) => (
-                                <div key={movie.movieId} className="imax-movie-container">
-                                    <h3>{movie.movieName}</h3>
-                                    <div className="imax-showtime-container">
-                                        <ul>
-                                            {movie.showtimes.map((showtime, index) => (
-                                                <li key={index}>
-                                                    {showtime.time.toLocaleDateString()}{" "}
-                                                    {showtime.time.toLocaleTimeString()}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ))}
+                <ScreenType  theaters={screenType} />
             </div>
+
         </div>
     );
 

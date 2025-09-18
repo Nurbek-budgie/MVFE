@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import bgImg from './assets/anime-style-clouds.jpg';
 import MovieDetails from './routes/MovieDetails/MovieDetails';
 import IMax from './routes/IMax/IMax';
+import DolbyVision from './routes/DolbyVision/DolbyVision';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/movie/:id" element={ <MovieDetails />} />
         <Route path="/imax" element={<IMax />} />
+        <Route path="/dolbyvision" element={<DolbyVision /> } />
       </Routes>
     </Router>
     </div>

@@ -7,6 +7,7 @@
 .imax-text-container {
     color: #02558b;
     text-align: center;
+    padding: 10px 15px;
 }
 
 .imax-text-container h3,
@@ -25,7 +26,6 @@
     text-decoration: underline;
 }
 
-
 .imax-screens-container {
     padding: 20px;
 }
@@ -33,24 +33,4 @@
 .imax-screens-container h2 {
     font-weight: 100;
     color: #02558b;
-}
-
-.imax-theater-container {
-    padding: 10px;
-}
-
-.imax-movie-container {
-    background-color: green;
-}
-
-.imax-showtime-container {
-    background-color: black;
-}
-
-.imax-theater2-container {
-    background-color: brown;
-    border-radius: 10px;
-    border: 2px solid white;
-    padding: 10px;
-
 }

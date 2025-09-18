@@ -1,0 +1,47 @@
+.screen-theater-container {
+    padding: 10px;
+}
+
+.screen-theater-header {
+  background-color: #201f2f;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: 100;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.screen-movie-container {
+  background-color: #012d3c;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 15px;
+  border-top: 1px solid #004e6b;
+}
+
+.screen-movie-container:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; 
+}
+
+.screen-movie-name {
+    max-width: 200px;
+}
+
+.screen-showtime-list {
+    display: flex;
+    gap: 10px;
+}
+
+.screen-showtime {
+    background-color: #004e6b;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.screen-showtime:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
