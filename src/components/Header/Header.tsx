@@ -8,7 +8,7 @@ function Header() {
                 <a href="/imax">IMax</a>
                 <a href="/dolbyvision">DolbyVision</a>
                 <a href="/movies">Movies</a>
-                <a href="/movies">Cinemas</a>
+                <a href="/cinemas">Cinemas</a>
             </nav>
         </header>
     )

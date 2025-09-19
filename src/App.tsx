@@ -6,6 +6,8 @@ import bgImg from './assets/anime-style-clouds.jpg';
 import MovieDetails from './routes/MovieDetails/MovieDetails';
 import IMax from './routes/IMax/IMax';
 import DolbyVision from './routes/DolbyVision/DolbyVision';
+import Movies from './routes/Movies/Movies';
+import Cinema from './routes/Cinema/Cinema';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/movie/:id" element={ <MovieDetails />} />
         <Route path="/imax" element={<IMax />} />
         <Route path="/dolbyvision" element={<DolbyVision /> } />
+        <Route path="movies" element={<Movies />} />
+        <Route path="cinemas" element={<Cinema />} />
       </Routes>
     </Router>
     </div>

@@ -1,0 +1,17 @@
+.movies-container {
+    margin: 0 500px;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.movies-container h1 {
+    color: white;
+    font-weight: 100;
+}
+
+.separator-hr-movies {
+  border: none;
+  border-top: 2px dotted #888;
+  margin: 16px 0;
+}

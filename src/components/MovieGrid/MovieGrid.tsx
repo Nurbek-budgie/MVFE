@@ -50,7 +50,9 @@ function MovieGrid() {
                             <img src={`https://localhost:7109${movie.posterUrl}`} // prepend backend URL
                                 alt={movie.title}
                                 className="movie-poster" />
-                            <h3>{movie.title}</h3>
+                            <div className="movie-card-wrapper">
+                                <div className="movie-card-title">{movie.title}</div>
+                            </div>
                         </div>
                     </Link>
 

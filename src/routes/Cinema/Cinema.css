@@ -1,0 +1,15 @@
+.cinema-container {
+    margin: 0 400px;
+}
+
+.cinema-grid {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.cinema-divider {
+    border: none;
+    border-top: 2px dotted;
+    margin-top: 5px;
+}
