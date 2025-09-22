@@ -1,5 +1,5 @@
 .screen-theater-container {
-    padding: 10px;
+  padding: 10px;
 }
 
 .screen-theater-header {
@@ -23,25 +23,25 @@
 
 .screen-movie-container:last-child {
   border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px; 
+  border-bottom-right-radius: 10px;
 }
 
 .screen-movie-name {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 .screen-showtime-list {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .screen-showtime {
-    background-color: #004e6b;
-    padding: 5px;
-    border-radius: 5px;
+  background-color: #004e6b;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .screen-showtime:hover {
-    text-decoration: underline;
-    cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }

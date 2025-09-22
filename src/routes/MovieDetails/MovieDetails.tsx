@@ -10,8 +10,30 @@ type Movie = {
     posterUrl: string;
     trailerUrl: string;
     language: string;
-    // screenings
+    cast: string;
+    releaseDate: Date;
+    theaters: Theater[];
 };
+
+type Theater = {
+    id: number;
+    theaterName: string;
+    screens: Screen[];
+};
+
+type Screen = {
+    id: number;
+    screenName: string;
+    screenings: Screening[];
+};
+
+type Screening = {
+    id: number;
+    startTime: string,
+    basePrice: number;
+};
+
+
 
 function MovieDetails() {
     const { id } = useParams();
@@ -21,12 +43,27 @@ function MovieDetails() {
     useEffect(() => {
         const fetchMovie = async () => {
             try {
-                const responce = await fetch(`https://localhost:7109/api/movies/${id}`);
+                const responce = await fetch(`https://localhost:7109/api/moviesscre/${id}`);
                 if (!responce) {
                     throw new Error("Failed to fetch");
                 }
 
-                const data = await responce.json();
+                const rawData = await responce.json();
+
+                const data: Movie = {
+                    ...rawData,
+                    theaters: rawData.theaters?.map((theater: any) => ({
+                        ...theater,
+                        screens: theater.screens?.map((screen: any) => ({
+                            ...screen,
+                            screenings: screen.screenings?.map((screening: any) => ({
+                                id: screening.id,
+                                startTime: screening.startTime,
+                                basePrice: screening.basePrice
+                            }))
+                        }))
+                    }))
+                };
 
                 setMovie(data);
             } catch (error: any) {
@@ -37,18 +74,58 @@ function MovieDetails() {
         fetchMovie();
     }, [id]);
 
-    return <div>
-        <div className="movie-detail-container">
-            <div className="movie-detail-card">
-                <img
-                src={`https://localhost:7109${movie?.trailerUrl}`}
-                alt={movie?.title}
-                className="movie-trailer"
-                />
-                <h3>{movie?.title}</h3>
+    return (
+        <div>
+            <div className="movie-detail-container">
+                <div className="movie-detail-card">
+                    <img
+                        src={`https://localhost:7109${movie?.trailerUrl}`}
+                        alt={movie?.title}
+                        className="movie-trailer"
+                    />
+                    <h3>{movie?.title}</h3>
+                </div>
+
+                <div className="movie-detail-date">
+                    <h2>Select date for booking</h2>
+                </div>
+
+                <div className="movie-detail-screenings">
+                    {movie?.theaters?.map((theater) => (
+                        <div key={theater.id} className="theater-wrapper">
+                            <div className="movie-detail-theater">
+                                <h3>{theater.theaterName}</h3>
+                            </div>
+                            <div className="movie-detail-screen">
+                                {theater.screens?.map((screen) => (
+                                    <div className="screen-wrapper">
+                                        <div key={screen.id} className="movie-detail-screen-det">
+                                            <h4>{screen.screenName}</h4>
+                                        </div>
+                                        <div className="movie-detail-screening">
+                                            {screen.screenings?.map((screening) => (
+                                                <div
+                                                    key={screening.id}
+                                                    className="movie-detail-screening-btn"
+                                                    onClick={() => console.log("Selected screening:", screening.id)}
+                                                >
+                                                    {new Date(screening.startTime).toLocaleTimeString([], {
+                                                        hour: "2-digit",
+                                                        minute: "2-digit",
+                                                    })}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
-    </div>
+    );
+
 }
 
 export default MovieDetails;

@@ -30,3 +30,48 @@
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
+
+.movie-detail-screenings {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.movie-detail-theater {
+    background-color: #201f2f;
+    color: white;
+    padding: 8px 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.screen-wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: #012d3c;
+    color: white;
+    padding: 8px 15px;
+}
+
+.movie-detail-screening {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.screen-wrapper:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.movie-detail-screening-btn {
+    padding: 5px;
+    background-color: #004e6b;
+    border-radius: 5px;
+}
+
+.movie-detail-screening-btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
