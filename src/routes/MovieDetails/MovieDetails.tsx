@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './MovieDetails.css'
+import ScreeningButton from "../../components/ScreeningButton/ScreeningButton";
 
 type Movie = {
     id: number;
@@ -104,16 +105,7 @@ function MovieDetails() {
                                         </div>
                                         <div className="movie-detail-screening">
                                             {screen.screenings?.map((screening) => (
-                                                <div
-                                                    key={screening.id}
-                                                    className="movie-detail-screening-btn"
-                                                    onClick={() => console.log("Selected screening:", screening.id)}
-                                                >
-                                                    {new Date(screening.startTime).toLocaleTimeString([], {
-                                                        hour: "2-digit",
-                                                        minute: "2-digit",
-                                                    })}
-                                                </div>
+                                                <ScreeningButton key={screening.id} screening={screening} />
                                             ))}
                                         </div>
                                     </div>

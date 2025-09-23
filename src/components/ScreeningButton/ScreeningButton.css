@@ -1,0 +1,10 @@
+.movie-detail-screening-btn {
+ padding: 5px;
+ background-color: #004e6b;
+ border-radius: 5px;
+}
+
+.movie-detail-screening-btn:hover {
+ text-decoration: underline;
+ cursor: pointer;
+}
