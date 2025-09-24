@@ -8,3 +8,109 @@
  text-decoration: underline;
  cursor: pointer;
 }
+
+.modal-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: rgba(0, 0, 0, 0.5);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.modal-content {
+ background: white;
+ padding: 2rem;
+ border-radius: 10px;
+ max-width: 500px;
+ width: 100%;
+ color: black;
+}
+
+/* --- Seat Layout Grid --- */
+.seat-layout {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+ margin: 1.5rem 0;
+}
+
+.seat-row {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ justify-content: center;
+}
+
+.row-label {
+ font-weight: bold;
+ width: 20px;
+ text-align: right;
+}
+
+/* --- Seat Button Styles --- */
+.seat-btn {
+ padding: 0.5rem;
+ width: 36px;
+ height: 36px;
+ font-size: 0.9rem;
+ border: none;
+ border-radius: 6px;
+ cursor: pointer;
+ transition: background 0.2s ease-in-out;
+}
+
+/* Available seat */
+.seat-btn.available {
+ background: #f1f1f1;
+ color: #333;
+}
+
+.seat-btn.available:hover {
+ background: #ddd;
+}
+
+/* Selected seat */
+.seat-btn.selected {
+ background: #28a745;
+ color: #fff;
+}
+
+/* Booked seat */
+.seat-btn.booked {
+ background: #d9534f;
+ color: white;
+ cursor: not-allowed;
+ opacity: 0.8;
+}
+
+.modal-actions {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 1rem;
+}
+
+.modal-actions button {
+ padding: 0.5rem 1.5rem;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+}
+
+.modal-actions button:first-child {
+ background: #aaa;
+ color: #fff;
+}
+
+.modal-actions button:last-child {
+ background: #4caf50;
+ color: #fff;
+}
+
+.modal-actions button:disabled {
+ background: #ccc;
+ cursor: not-allowed;
+}
