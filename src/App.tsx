@@ -8,23 +8,31 @@ import IMax from './routes/IMax/IMax';
 import DolbyVision from './routes/DolbyVision/DolbyVision';
 import Movies from './routes/Movies/Movies';
 import Cinema from './routes/Cinema/Cinema';
+import AdminLayout from './components/Admin/AdminLayout/AdminLayout';
+import PublicLayout from './PublicLayout';
 
 function App() {
   return (
-    <div className='app'
-      style={ { backgroundImage: `url(${bgImg}` } }>
+    <div className='app'>
       <Router>
-      <Header />
+        <Routes>
+          {/* Public routes */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/imax" element={<IMax />} />
+            <Route path="/dolbyvision" element={<DolbyVision />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/cinemas" element={<Cinema />} />
+          </Route>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={ <MovieDetails />} />
-        <Route path="/imax" element={<IMax />} />
-        <Route path="/dolbyvision" element={<DolbyVision /> } />
-        <Route path="movies" element={<Movies />} />
-        <Route path="cinemas" element={<Cinema />} />
-      </Routes>
-    </Router>
+          {/* Admin routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            {/* <Route path="movies" element={<AdminMovies />} />
+            <Route path="screenings" element={<AdminScreenings />} /> */}
+          </Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
