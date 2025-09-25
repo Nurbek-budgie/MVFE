@@ -1,0 +1,193 @@
+.adminmovies-container {
+ padding: 20px;
+ font-family: Arial, sans-serif;
+ background-color: #f5f5f5;
+ min-height: 100vh;
+}
+
+.adminmovies-container>button {
+ background-color: #4caf50;
+ color: white;
+ border: none;
+ padding: 10px 20px;
+ font-size: 16px;
+ margin-bottom: 20px;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.adminmovies-container>button:hover {
+ background-color: #45a049;
+}
+
+.adminmovies-table {
+ width: 100%;
+ border-collapse: collapse;
+ background-color: white;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.adminmovies-table th {
+ background-color: #201f30;
+ color: white;
+ padding: 12px 15px;
+ text-align: left;
+}
+
+.adminmovies-table td {
+ padding: 12px 15px;
+ border-bottom: 1px solid #ddd;
+}
+
+.adminmovies-table tbody tr:nth-child(even) {
+ background-color: #f9f9f9;
+}
+
+.adminmovies-table tbody tr:hover {
+ background-color: #f1f1f1;
+}
+
+.actions button {
+ margin-right: 5px;
+ padding: 6px 12px;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+ font-size: 14px;
+ transition: background-color 0.3s ease;
+}
+
+.actions .edit {
+ background-color: #2196f3;
+ color: white;
+}
+
+.actions .edit:hover {
+ background-color: #1976d2;
+}
+
+.actions .delete {
+ background-color: #f44336;
+ color: white;
+}
+
+.actions .delete:hover {
+ background-color: #d32f2f;
+}
+
+.model-content {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ display: flex;
+ background: rgba(0, 0, 0, 0.5);
+ justify-content: center;
+ align-items: center;
+ overflow: auto;
+ /* Allow scrolling if content is tall */
+ padding: 20px;
+}
+
+/* Removed background from overlay, just acts as wrapper */
+.model-overlay {
+ background: white;
+ padding: 2rem;
+ border-radius: 10px;
+ max-width: 700px;
+ width: 100%;
+ max-height: 90vh;
+ overflow-y: auto;
+ box-sizing: border-box;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+
+/* Modal form container (actual white box) */
+.model-form {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ width: 100%;
+ color: #333;
+ box-sizing: border-box;
+}
+
+/* Form heading if any */
+.model-form h2 {
+ text-align: center;
+ margin-bottom: 1rem;
+ font-size: 1.5rem;
+}
+
+/* Labels and inputs */
+.model-form label {
+ display: flex;
+ flex-direction: column;
+ font-weight: bold;
+ font-size: 14px;
+}
+
+.model-form input[type="text"],
+.model-form input[type="number"],
+.model-form input[type="date"],
+.model-form input[type="file"] {
+ margin-top: 5px;
+ padding: 8px 10px;
+ font-size: 14px;
+ border-radius: 5px;
+ border: 1px solid #ccc;
+}
+
+/* Checkbox */
+.model-form input[type="checkbox"] {
+ width: 20px;
+ height: 20px;
+ margin-top: 8px;
+}
+
+/* Buttons container */
+.modal-buttons {
+ display: flex;
+ justify-content: flex-end;
+ gap: 10px;
+ margin-top: 15px;
+}
+
+/* Save button */
+.save-btn {
+ background-color: #4caf50;
+ color: white;
+ border: none;
+ padding: 8px 16px;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+ background-color: #45a049;
+}
+
+/* Close / Cancel button */
+.close-btn {
+ background-color: #f44336;
+ color: white;
+ border: none;
+ padding: 8px 16px;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+ background-color: #d32f2f;
+}
+
+/* Optional: make file inputs smaller */
+.model-form input[type="file"] {
+ padding: 3px;
+}

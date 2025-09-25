@@ -1,8 +1,6 @@
 import './App.css';
-import Header from './components/Header/Header';
 import Home from './routes/Home/Home';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import bgImg from './assets/anime-style-clouds.jpg';
 import MovieDetails from './routes/MovieDetails/MovieDetails';
 import IMax from './routes/IMax/IMax';
 import DolbyVision from './routes/DolbyVision/DolbyVision';
@@ -10,6 +8,7 @@ import Movies from './routes/Movies/Movies';
 import Cinema from './routes/Cinema/Cinema';
 import AdminLayout from './components/Admin/AdminLayout/AdminLayout';
 import PublicLayout from './PublicLayout';
+import AdminMovies from './components/Admin/AdminMovies/AdminMovies';
 
 function App() {
   return (
@@ -28,8 +27,8 @@ function App() {
 
           {/* Admin routes */}
           <Route path="/admin" element={<AdminLayout />}>
-            {/* <Route path="movies" element={<AdminMovies />} />
-            <Route path="screenings" element={<AdminScreenings />} /> */}
+            <Route path="movies" element={<AdminMovies />} />
+            {/* <Route path="screenings" element={<AdminScreenings />} /> */}
           </Route>
         </Routes>
       </Router>
