@@ -9,6 +9,7 @@ import Cinema from './routes/Cinema/Cinema';
 import AdminLayout from './components/Admin/AdminLayout/AdminLayout';
 import PublicLayout from './PublicLayout';
 import AdminMovies from './components/Admin/AdminMovies/AdminMovies';
+import AdminScreenings from './components/Admin/AdminScreenings/AdminScreenings';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           {/* Admin routes */}
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="movies" element={<AdminMovies />} />
-            {/* <Route path="screenings" element={<AdminScreenings />} /> */}
+            <Route path="screenings" element={<AdminScreenings />} />
           </Route>
         </Routes>
       </Router>

@@ -23,10 +23,6 @@ const ScreeningButton: React.FC<ScreeningButtonProps> = ({ screening }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // const handleOpenModal = () => {
-  //   fetchSeats();
-  //   setIsModalOpen(true);
-  // }
 
   const handleOpenModal = async () => {
     setIsModalOpen(true);

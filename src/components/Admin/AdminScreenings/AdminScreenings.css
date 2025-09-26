@@ -1,0 +1,129 @@
+.screening-container {
+ padding: 20px;
+ font-family: Arial, sans-serif;
+ background-color: #f5f5f5;
+ min-height: 100vh;
+}
+
+.screening-container>button {
+ background-color: #4caf50;
+ color: white;
+ border: none;
+ padding: 10px 20px;
+ font-size: 16px;
+ margin-bottom: 20px;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.screening-container>button:hover {
+ background-color: #45a049;
+}
+
+.screening-modal-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: rgb(0, 0, 0, 0.5);
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+}
+
+.screening-modal-content {
+ background-color: white;
+ margin: 500px;
+ padding: 20px;
+}
+
+.screening-modal-actions {
+ display: flex;
+ flex-direction: row;
+ justify-content: flex-end;
+}
+
+.screening-table {
+ width: 100%;
+ border-collapse: collapse;
+ background-color: white;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.screening-table th {
+ background-color: #201f30;
+ color: white;
+ padding: 12px 15px;
+ text-align: left;
+}
+
+.screening-table td {
+ padding: 12px 15px;
+ border-bottom: 1px solid #ddd;
+}
+
+.screening-table tbody tr:nth-child(even) {
+ background-color: #f9f9f9;
+}
+
+.screening-table tbody tr:hover {
+ background-color: #f1f1f1;
+}
+
+.screening-modal-form {
+ margin-top: 10px;
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ gap: 12px;
+ color: #333;
+ box-sizing: border-box;
+}
+
+
+.screening-modal-form label {
+ display: flex;
+ flex-direction: column;
+ font-weight: bold;
+ font-size: 14px;
+}
+
+.screening-modal-form input[type="text"],
+.screening-modal-form input[type="number"] {
+ margin-top: 5px;
+ padding: 8px 10px;
+ font-size: 14px;
+ border-radius: 5px;
+ border: 1px solid #ccc;
+}
+
+.save-btn {
+ background-color: #4caf50;
+ color: white;
+ border: none;
+ padding: 8px 16px;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+ background-color: #45a049;
+}
+
+/* Close / Cancel button */
+.close-btn {
+ background-color: #f44336;
+ color: white;
+ border: none;
+ padding: 8px 16px;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+ background-color: #d32f2f;
+}
