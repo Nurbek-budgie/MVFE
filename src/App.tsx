@@ -10,6 +10,9 @@ import AdminLayout from './components/Admin/AdminLayout/AdminLayout';
 import PublicLayout from './PublicLayout';
 import AdminMovies from './components/Admin/AdminMovies/AdminMovies';
 import AdminScreenings from './components/Admin/AdminScreenings/AdminScreenings';
+import ScreeningManager from './routes/Manager/Screening/ScreeningManager';
+import ScreenManager from './routes/Manager/Screen/ScreenManager';
+import ManagerLayout from './routes/Manager/ManagerLayout/ManagerLayout';
 
 function App() {
   return (
@@ -30,7 +33,15 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="movies" element={<AdminMovies />} />
             <Route path="screenings" element={<AdminScreenings />} />
+            <Route path="screening/manager" element={<ScreeningManager />} />
+            <Route path="screen/manager" element={<ScreenManager />} />
           </Route>
+          {/* Manager routes */}
+          <Route path="/manager" element={<ManagerLayout />}>
+            <Route path="screening/manager" element={<ScreeningManager />} />
+            <Route path="screen/manager" element={<ScreenManager />} />
+          </Route>
+
         </Routes>
       </Router>
     </div>

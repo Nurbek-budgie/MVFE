@@ -20,6 +20,16 @@ const AdminLayout = () => {
        </NavLink>
       </li>
       <li>
+       <NavLink to="screening/manager" className={({ isActive }) => isActive ? "active" : ""}>
+        Screening Manger
+       </NavLink>
+      </li>
+      <li>
+       <NavLink to="screen/manager" className={({ isActive }) => isActive ? "active" : ""}>
+        Screen Manger
+       </NavLink>
+      </li>
+      <li>
        <NavLink to="users" className={({ isActive }) => isActive ? "active" : ""}>
         Users
        </NavLink>
