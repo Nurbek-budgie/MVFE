@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './MovieDetails.css'
 import ScreeningButton from "../../components/ScreeningButton/ScreeningButton";
+import AddScreeningModal from "../../components/AddScreeningModal/AddScreeningModal";
 
 type Movie = {
     id: number;
@@ -38,9 +39,20 @@ type Screening = {
 
 function MovieDetails() {
     const { id } = useParams();
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [movie, setMovie] = useState<Movie | null>(null);
+    const [selectedScreening, setSelectedScreening] = useState<Screening | null>(null);
 
+
+    const handleOpenModal = (screening: Screening) => {
+        setSelectedScreening(screening);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedScreening(null);
+    };
     useEffect(() => {
         const fetchMovie = async () => {
             try {
@@ -103,9 +115,16 @@ function MovieDetails() {
                                         <div key={screen.id} className="movie-detail-screen-det">
                                             <h4>{screen.screenName}</h4>
                                         </div>
-                                        <div className="movie-detail-screening">
+                                        <div className="movie-detail-screening" >
                                             {screen.screenings?.map((screening) => (
-                                                <ScreeningButton key={screening.id} screening={screening} />
+                                                <ScreeningButton key={screening.id} screening={{
+                                                    id: screening.id,
+                                                    startTime: screening.startTime,
+                                                    basePrice: screening.basePrice,
+                                                    movieTitle: movie.title,
+                                                    screenName: screen.screenName
+                                                }}
+                                                />
                                             ))}
                                         </div>
                                     </div>
@@ -115,6 +134,14 @@ function MovieDetails() {
                     ))}
                 </div>
             </div>
+
+            {isModalOpen && (
+                <div className="movie-details-modal-overlay">
+                    <div className="movie-details-modal-content">
+                        <AddScreeningModal onClose={handleCloseModal} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 

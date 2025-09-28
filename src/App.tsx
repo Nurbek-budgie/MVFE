@@ -13,6 +13,7 @@ import AdminScreenings from './components/Admin/AdminScreenings/AdminScreenings'
 import ScreeningManager from './routes/Manager/Screening/ScreeningManager';
 import ScreenManager from './routes/Manager/Screen/ScreenManager';
 import ManagerLayout from './routes/Manager/ManagerLayout/ManagerLayout';
+import AdminTheater from './components/Admin/AdminTheater/AdminTheater';
 
 function App() {
   return (
@@ -31,8 +32,8 @@ function App() {
 
           {/* Admin routes */}
           <Route path="/admin" element={<AdminLayout />}>
+            <Route path="theater" element={<AdminTheater />} />
             <Route path="movies" element={<AdminMovies />} />
-            <Route path="screenings" element={<AdminScreenings />} />
             <Route path="screening/manager" element={<ScreeningManager />} />
             <Route path="screen/manager" element={<ScreenManager />} />
           </Route>

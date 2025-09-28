@@ -3,42 +3,30 @@ import './ScreeningManager.css'
 import ScreeningButton from '../../../components/ScreeningButton/ScreeningButton';
 import AddScreeningModal from '../../../components/AddScreeningModal/AddScreeningModal';
 
-type Movie = {
- id: number;
- title: string;
- description: string;
- duration: number;
- posterUrl: string;
- trailerUrl: string;
- language: string;
- cast: string;
- releaseDate: Date;
- theaters: Theater[];
+type Showtime = {
+ showtimeId: number;
+ startTime: string;
+ basePrice: number;
 };
 
-type Theater = {
- id: number;
- theaterName: string;
- screens: Screen[];
+type Movie = {
+ movieId: number;
+ movieTitle: string;
+ showtimes: Showtime[];
 };
 
 type Screen = {
- id: number;
+ screenId: number;
  screenName: string;
- screenings: Screening[];
-};
-
-type Screening = {
- id: number;
- startTime: string,
- basePrice: number;
+ movies: Movie[];
 };
 
 function ScreeningManager() {
  const [isModalOpen, setModal] = useState(false);
- const id = 5;
-
- const [movie, setMovie] = useState<Movie | null>(null);
+ const [screens, setScreens] = useState<Screen[]>([]);
+ const [loading, setLoading] = useState(true);
+ const [error, setError] = useState<string | null>(null);
+ const id = 3;
 
  const handleOpenModal = () => {
   setModal(true);
@@ -49,78 +37,105 @@ function ScreeningManager() {
  }
 
  useEffect(() => {
-  const fetchMovie = async () => {
+  const fetchScreens = async () => {
    try {
-    const responce = await fetch(`https://localhost:7109/api/moviesscre/${id}`);
-    if (!responce) {
-     throw new Error("Failed to fetch");
+    setLoading(true);
+    setError(null);
+
+    const response = await fetch(`https://localhost:7109/screen/theatershowtimd?theaterId=${id}`);
+
+    if (!response.ok) {
+     throw new Error(`Failed to fetch screenings: ${response.status}`);
     }
 
-    const rawData = await responce.json();
-
-    const data: Movie = {
-     ...rawData,
-     theaters: rawData.theaters?.map((theater: any) => ({
-      ...theater,
-      screens: theater.screens?.map((screen: any) => ({
-       ...screen,
-       screenings: screen.screenings?.map((screening: any) => ({
-        id: screening.id,
-        startTime: screening.startTime,
-        basePrice: screening.basePrice
-       }))
-      }))
-     }))
-    };
-
-    setMovie(data);
+    const data: Screen[] = await response.json();
+    setScreens(data);
    } catch (error: any) {
-    console.log(error)
+    console.error("Error fetching screenings:", error);
+    setError(error.message || "Failed to fetch screenings");
+   } finally {
+    setLoading(false);
    }
   }
 
-  fetchMovie();
+  fetchScreens();
  }, [id]);
 
  return (
-  <>
-   <div className="manager-screening-container">
-    <button className="add-new-screening-btn" onClick={handleOpenModal}>Add a new Movie Screening</button>
-    <div className="movie-detail-screenings">
-     {movie?.theaters?.map((theater) => (
-      <div key={theater.id} className="theater-wrapper">
-       <div className="movie-detail-theater">
-        <h3>{theater.theaterName}</h3>
-       </div>
-       <div className="movie-detail-screen">
-        {theater.screens?.map((screen) => (
-         <div className="screen-wrapper">
-          <div key={screen.id} className="movie-detail-screen-det">
-           <h4>{screen.screenName}</h4>
-          </div>
-          <div className="movie-detail-screening">
-           {screen.screenings?.map((screening) => (
-            <ScreeningButton key={screening.id} screening={screening} />
-           ))}
-          </div>
-         </div>
-        ))}
-       </div>
-      </div>
-     ))}
-    </div>
+  <div className="manager-screening-container">
+   <div className="screening-manager-header">
+    <h1 className="screening-manager-title">Screening Management</h1>
+    <button className="add-new-screening-btn" onClick={handleOpenModal}>
+     Add a new Movie Screening
+    </button>
+   </div>
 
-    {isModalOpen && (
-     <div className="screeningManager-modal-overlay">
-      <div className="screeningMangaer-modal-content">
-       <AddScreeningModal />
-       <button onClick={handleCloseModal}>closeddddd</button>
-      </div>
+   <div className="screening-mgr-screenings-list">
+    {screens.length === 0 ? (
+     <div className="screening-mgr-no-screenings">
+      <p>No screenings found for this theater.</p>
+      <p>Click "Add a new Movie Screening" to get started.</p>
      </div>
+    ) : (
+     screens.map((screen) => (
+      <div key={screen.screenId} className="screening-mgr-screen-card">
+       <div className="screening-mgr-screen-header">
+        <h2 className="screening-mgr-screen-name">{screen.screenName}</h2>
+       </div>
+
+       <div className="screening-mgr-screen-movies">
+        {screen.movies.length === 0 ? (
+         <div className="screening-mgr-no-movies">
+          No movies scheduled for this screen
+         </div>
+        ) : (
+         screen.movies.map((movie) => (
+          <div key={movie.movieId} className="screening-mgr-movie-section">
+           <div className="screening-mgr-movie-header">
+            <h3 className="screening-mgr-movie-title">{movie.movieTitle}</h3>
+           </div>
+
+           <div className="screening-mgr-movie-showtimes">
+            {movie.showtimes.length === 0 ? (
+             <div className="screening-mgr-no-showtimes">
+              No showtimes available
+             </div>
+            ) : (
+             movie.showtimes.map((showtime) => (
+              <ScreeningButton
+               key={showtime.showtimeId}
+               screening={{
+                id: showtime.showtimeId,
+                startTime: showtime.startTime,
+                basePrice: showtime.basePrice,
+                movieTitle: movie.movieTitle,
+                screenName: screen.screenName
+               }}
+              />
+             ))
+            )}
+           </div>
+          </div>
+         ))
+        )}
+       </div>
+      </div>
+     ))
     )}
    </div>
-  </>
- )
+
+   {isModalOpen && (
+    <div className="screening-manager-modal-overlay">
+     <div className="screening-manager-modal-content">
+      <AddScreeningModal
+       onClose={handleCloseModal}
+      // onScreeningAdded={handleScreeningAdded}
+      />
+     </div>
+    </div>
+   )}
+  </div>
+ );
 }
 
 export default ScreeningManager;

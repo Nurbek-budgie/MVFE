@@ -10,13 +10,13 @@ const AdminLayout = () => {
     <nav>
      <ul>
       <li>
-       <NavLink to="movies" className={({ isActive }) => isActive ? "active" : ""}>
-        Movies
+       <NavLink to="theater" className={({ isActive }) => isActive ? "active" : ""}>
+        Theater
        </NavLink>
       </li>
       <li>
-       <NavLink to="screenings" className={({ isActive }) => isActive ? "active" : ""}>
-        Screenings
+       <NavLink to="movies" className={({ isActive }) => isActive ? "active" : ""}>
+        Movies
        </NavLink>
       </li>
       <li>
