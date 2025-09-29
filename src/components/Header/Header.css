@@ -3,12 +3,14 @@
 }
 
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: sticky;
     top: 0;
     background-color: #201f30;
     color: white;
     padding: 20px;
-    text-align: center;
     z-index: 1000;
 }
 
@@ -20,5 +22,16 @@
 }
 
 .header nav a:hover {
+    text-decoration: underline;
+}
+
+.header nav a, .nav-right a {
+    color: white;
+    margin: 0 10px;
+    font-size: x-large;
+    text-decoration: none;
+}
+
+.header nav a:hover, .nav-right a:hover {
     text-decoration: underline;
 }

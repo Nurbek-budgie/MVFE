@@ -10,12 +10,12 @@ const ManagerLayout = () => {
      <nav>
       <ul>
        <li>
-        <NavLink to="screening/manager" className={({ isActive }) => isActive ? "active" : ""}>
+        <NavLink to="screening" className={({ isActive }) => isActive ? "active" : ""}>
          Screening Manager
         </NavLink>
        </li>
        <li>
-        <NavLink to="screen/manager" className={({ isActive }) => isActive ? "active" : ""}>
+        <NavLink to="screen" className={({ isActive }) => isActive ? "active" : ""}>
          Screen Manager
         </NavLink>
        </li>

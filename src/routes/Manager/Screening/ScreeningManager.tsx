@@ -37,26 +37,38 @@ function ScreeningManager() {
  }
 
  useEffect(() => {
-  const fetchScreens = async () => {
-   try {
+const fetchScreens = async () => {
+  try {
     setLoading(true);
     setError(null);
 
-    const response = await fetch(`https://localhost:7109/screen/theatershowtimd?theaterId=${id}`);
+    const token = localStorage.getItem('accessToken'); 
+    if (!token) throw new Error("User is not logged in");
+
+    const response = await fetch(
+      `https://localhost:7109/screen/theatershowtimd?theaterId=${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`, 
+          "Content-Type": "application/json"
+        },
+      }
+    );
 
     if (!response.ok) {
-     throw new Error(`Failed to fetch screenings: ${response.status}`);
+      throw new Error(`Failed to fetch screenings: ${response.status}`);
     }
 
     const data: Screen[] = await response.json();
     setScreens(data);
-   } catch (error: any) {
+  } catch (error: any) {
     console.error("Error fetching screenings:", error);
     setError(error.message || "Failed to fetch screenings");
-   } finally {
+  } finally {
     setLoading(false);
-   }
   }
+};
 
   fetchScreens();
  }, [id]);
