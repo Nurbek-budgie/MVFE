@@ -19,10 +19,12 @@ export const login = async (data: LoginRequest): Promise<LoginResponse> => {
         body: JSON.stringify(data)
     });
 
+    const json = await res.json();
+
     if (!res.ok) {
-        const errorData = await res.json();
+        const errorData = await json;
         throw new Error(errorData.message || 'Login failed');
     }
 
-    return res.json();
+    return json;
 };

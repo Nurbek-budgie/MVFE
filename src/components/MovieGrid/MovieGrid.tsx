@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import './MovieGrid.css'
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 type Movie = {
     id: number;
@@ -10,34 +11,21 @@ type Movie = {
 };
 
 function MovieGrid() {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                const response = await fetch("https://localhost:7109/api/movies");
-                if (!response) {
-                    throw new Error("Failed to fetch");
-                }
-                const data = await response.json();
-                setMovies(data);
-            } catch (err: any) {
-                setError(err.message);
-            }
-            finally {
-                setLoading(false);
-            }
-        }
+    const { data: movies = [], isLoading, isError} = useQuery<Movie[]>({
+        queryKey: ['movies'],
+        queryFn: async () => {
+            const res = await fetch('https://localhost:7109/api/movies')
+            if (!res.ok) throw new Error("failed to fetch");
 
-        fetchMovies();
-    }, []);
-
-    if (loading) return <p>Loading movies...</p>;
-    if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+            return res.json();
+        },
+    });
 
 
+    if (isLoading) return <p>Loading....</p>
+    if (isError) return <p>Error fecthing</p>
     return (
         <div className="movie-grid">
             {

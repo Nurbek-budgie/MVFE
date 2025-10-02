@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import './TrailerSlider.css';
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 type Movie = {
     id: number;
@@ -8,27 +9,21 @@ type Movie = {
 };
 
 function TrailerSlider() {
-    const [movies, setMovies] = useState<Movie[]>([]);
+    const queryClient = useQueryClient();
     const [current, setCurrent] = useState(0);
-
-    useEffect(() => {
-        const fetchFeaturedMovies = async () => {
-            try {
-                const response = await fetch("https://localhost:7109/api/FeaturedMovies");
-                const data = await response.json();
-                setMovies(data);
-            } catch (error: any) {
-                throw new Error(error);
-            }
-
-        };
-        fetchFeaturedMovies();
-    }, []);
+    const { data: movies = [] } = useQuery<Movie[]>({
+        queryKey: ['featured-movies'],
+        queryFn: async () => {
+            const res = await fetch('https://localhost:7109/api/featuredmovies');
+            if (!res.ok) throw new Error('failed to fetch');
+            return res.json();
+        }
+    });
 
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrent(prev => (prev + 1) % movies.length);
-        }, 3000); // 3 seconds per slide
+        }, 4000); // 4 seconds per slide
         return () => clearInterval(interval);
     }, [movies]);
 

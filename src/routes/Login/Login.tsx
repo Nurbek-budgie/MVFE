@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import { login, type LoginRequest, type LoginResponse } from '../../api/auth';
+import { login, type LoginRequest } from '../../api/auth';
 
 const Login = () => {
     const [email, setEmail] = useState<string>('');
@@ -16,8 +16,7 @@ const Login = () => {
         const payload: LoginRequest = { email, password };
 
         try {
-            const dataFromApi: { token: LoginResponse } = await login(payload);
-            const data = dataFromApi.token;
+            const data = await login(payload);
 
             // Save tokens & user info
             localStorage.setItem('accessToken', data.accessToken);

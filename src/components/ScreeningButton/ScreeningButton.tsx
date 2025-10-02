@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './ScreeningButton.css';
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
 interface Screening {
   id: number;
@@ -22,14 +23,12 @@ interface Seat {
 }
 
 const ScreeningButton: React.FC<ScreeningButtonProps> = ({ screening }) => {
+  const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [seats, setSeats] = useState<Seat[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
 
   const handleOpenModal = async () => {
     setIsModalOpen(true);
-    await fetchSeats();
   };
 
   const handleCloseModal = () => {
@@ -37,20 +36,16 @@ const ScreeningButton: React.FC<ScreeningButtonProps> = ({ screening }) => {
     setSelectedSeats([]);
   };
 
-  const fetchSeats = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`https://localhost:7109/screening/seats/${screening.id}`);
-      if (!res.ok) throw new Error("Failed to load seats");
+  const {data: seats = [], isLoading} = useQuery<Seat[]>({
+    queryKey: ['screening-seats'],
+    queryFn: async() => {
+      const res = await fetch('https://localhost:7109/api/screenings/${screening.id}/seats');
+      if(!res.ok) throw new Error("failed to fetch");
       const data = await res.json();
-      setSeats(data.seats);
-    } catch (err) {
-      console.error(err);
-      alert("Failed to load seats. Try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+      return data.seats;
+    },
+    enabled: isModalOpen,
+  });
 
   const toggleSeatSelection = (seatId: number) => {
     const seat = seats.find(s => s.seatId === seatId);
@@ -61,33 +56,39 @@ const ScreeningButton: React.FC<ScreeningButtonProps> = ({ screening }) => {
     );
   };
 
-  const handleConfirmBooking = async () => {
-    if (selectedSeats.length === 0) return;
+  const bookSeatsMutation = useMutation({
+    mutationFn: async(seatIds: number[]) => {
+      const chosenSeats = seats.filter(s => seatIds.includes(s.seatId));
+      const requestBody = {
+        screeningId: screening.id,
+        seats: chosenSeats.map(s => ({row: s.row, number: s.seatNumber})),
+      };
 
-    const chosenSeats = seats.filter((s) => selectedSeats.includes(s.seatId));
-
-    const requestBody = {
-      screeningId: screening.id,
-      seats: chosenSeats.map((s) => ({
-        row: s.row,
-        number: s.seatNumber,
-      })),
-    };
-
-    try {
-      const res = await fetch("https://localhost:7109/reserve", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('https://localhost:7109/api/reservations', {
+        method: 'Post',
         body: JSON.stringify(requestBody),
       });
 
-      if (!res.ok) throw new Error("Reservation failed");
+      if (!res.ok) throw new Error("failed to reserve");
+
+      return res.json();
+    },
+    onSuccess: async() => {
+      queryClient.invalidateQueries({queryKey: ['screening-seats', screening.id],}),
       handleCloseModal();
-    } catch (error) {
-      console.error(error);
+    },
+    onError: (err) => {
+      console.error(err);
       alert("Booking failed. Please try again.");
     }
-  };
+  }); 
+
+  const handleConfirmBooking = () => {
+    if (selectedSeats.length === 0) {
+      return;
+    }
+    bookSeatsMutation.mutate(selectedSeats);
+  }
 
   // Group seats by row for cinema-style layout
   const groupedSeats = seats.reduce((acc, seat) => {
@@ -143,7 +144,7 @@ const ScreeningButton: React.FC<ScreeningButtonProps> = ({ screening }) => {
               </button>
             </div>
 
-            {loading ? (
+            {isLoading ? (
               <div className="cinema-loading">
                 <div className="loading-spinner"></div>
                 <p>Loading seats...</p>
