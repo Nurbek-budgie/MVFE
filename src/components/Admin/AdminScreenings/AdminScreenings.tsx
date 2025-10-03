@@ -36,7 +36,7 @@ function AdminScreenings() {
     });
 
     const createScreeningMutation = useMutation({
-        mutationFn: async(screeningData: typeof newScreening) => {
+        mutationFn: async (screeningData: typeof newScreening) => {
             const res = await fetch('https://localhost:7109/api/screenings',
                 {
                     method: 'Post',
@@ -49,15 +49,15 @@ function AdminScreenings() {
             return res.json();
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['screenings']});
+            queryClient.invalidateQueries({ queryKey: ['screenings'] });
             setIsModal(false);
             setNewScreening({
-            movieId: '',
-            screenId: '',
-            startTime: '',
-            endTime: '',
-            basePrice: '',
-            availableSeats: '',
+                movieId: '',
+                screenId: '',
+                startTime: '',
+                endTime: '',
+                basePrice: '',
+                availableSeats: '',
             });
         }
     })
@@ -71,27 +71,27 @@ function AdminScreenings() {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setNewScreening(prev => ({ ...prev, [name]: value }));
-  };
+        const { name, value } = e.target;
+        setNewScreening(prev => ({ ...prev, [name]: value }));
+    };
 
     // Handle Inputs
     const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // ✅ Basic validation
-    if (
-      !newScreening.movieId ||
-      !newScreening.screenId ||
-      !newScreening.startTime ||
-      !newScreening.endTime ||
-      !newScreening.basePrice ||
-      !newScreening.availableSeats
-    ) {
-      alert('Please fill in all fields');
-      return;
-    }
-    createScreeningMutation.mutate(newScreening);
-  };
+        e.preventDefault();
+        // ✅ Basic validation
+        if (
+            !newScreening.movieId ||
+            !newScreening.screenId ||
+            !newScreening.startTime ||
+            !newScreening.endTime ||
+            !newScreening.basePrice ||
+            !newScreening.availableSeats
+        ) {
+            alert('Please fill in all fields');
+            return;
+        }
+        createScreeningMutation.mutate(newScreening);
+    };
 
 
     return (

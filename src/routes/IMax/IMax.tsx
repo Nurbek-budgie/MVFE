@@ -1,8 +1,12 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import ScreenType from '../../components/ScreenType/ScreenType';
 import './IMax.css'
 import { useEffect, useState } from "react";
 
 type ShowTime = {
+    screeningId: number;
+    screenName: string;
+    basePrice: number;
     time: string;
 };
 
@@ -20,32 +24,18 @@ type Theater = {
 
 
 function IMax() {
-    const [screenType, setScreenType] = useState<Theater[]>([]);
+    const queryClient = useQueryClient();
+    const { data: theaters2 = []} = useQuery<Theater[]>({
+        queryKey: ['theaters'],
+        queryFn: async() => {
+            const res = await fetch('https://localhost:7109/api/screens/type/IMAX');
+            if (!res.ok) throw new Error("Failed to fetch");
+            return res.json();
+        },
+    });
+    //https://localhost:7109/api/screens/type/IMAX
 
-    useEffect(() => {
-        const fetchScreenType = async () => {
-            try {
-                const response = await fetch("https://localhost:7109/screens/type/IMAX");
-                const rawData = await response.json();
 
-                const data: Theater[] = rawData.map((theater: any) => ({
-                    ...theater,
-                    movies: theater.movies.map((movie: any) => ({
-                        ...movie,
-                        showtimes: movie.showtimes.map((st: any) => ({
-                            time: new Date(st.time)
-                        }))
-                    }))
-                })); // Study how does map works
-
-                setScreenType(data);
-            } catch (error: any) {
-                throw new Error("Something wrong with fecthing data");
-            }
-        };
-
-        fetchScreenType();
-    }, []);
 
     return (
         <div className="imax-container">
@@ -59,7 +49,7 @@ function IMax() {
             </div>
             <div className="imax-screens-container">
                 <h2>Today’s movie repertoire in the IMAX hall:</h2>
-                <ScreenType  theaters={screenType} />
+                <ScreenType  theaters={theaters2} />
             </div>
 
         </div>

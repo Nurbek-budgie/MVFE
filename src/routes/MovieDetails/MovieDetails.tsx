@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import './MovieDetails.css'
 import ScreeningButton from "../../components/ScreeningButton/ScreeningButton";
 import AddScreeningModal from "../../components/AddScreeningModal/AddScreeningModal";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 type Movie = {
     id: number;
@@ -36,12 +37,31 @@ type Screening = {
 };
 
 
-
+// TODO
 function MovieDetails() {
+    const queryClient = useQueryClient();
     const { id } = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [movie, setMovie] = useState<Movie | null>(null);
+    // const [movie, setMovie] = useState<Movie | null>(null);
     const [selectedScreening, setSelectedScreening] = useState<Screening | null>(null);
+    const { data: movie, isLoading, isError } = useQuery<Movie>({
+        queryKey: ['movie-theaters', id],
+        queryFn: async () => {
+            const res = await fetch(`https://localhost:7109/api/movies/${id}/screenings`);
+            if (!res.ok) throw new Error("Failed to fetch");
+            return res.json();
+        },
+    });
+    // const { data: movie } = useQuery<Movie>({
+    //     queryKey: ['movie'],
+    //     queryFn: async () => {
+    //         const res = await fetch(`https://localhost:7109/api/movies/${id}`);
+    //         if (!res.ok) throw new Error("Failed to fetch");
+    //         return res.json();
+    //     },
+    // });
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>Error fetching movie theaters</p>;
 
 
     const handleOpenModal = (screening: Screening) => {
@@ -53,39 +73,7 @@ function MovieDetails() {
         setIsModalOpen(false);
         setSelectedScreening(null);
     };
-    useEffect(() => {
-        const fetchMovie = async () => {
-            try {
-                const responce = await fetch(`https://localhost:7109/api/moviesscre/${id}`);
-                if (!responce) {
-                    throw new Error("Failed to fetch");
-                }
 
-                const rawData = await responce.json();
-
-                const data: Movie = {
-                    ...rawData,
-                    theaters: rawData.theaters?.map((theater: any) => ({
-                        ...theater,
-                        screens: theater.screens?.map((screen: any) => ({
-                            ...screen,
-                            screenings: screen.screenings?.map((screening: any) => ({
-                                id: screening.id,
-                                startTime: screening.startTime,
-                                basePrice: screening.basePrice
-                            }))
-                        }))
-                    }))
-                };
-
-                setMovie(data);
-            } catch (error: any) {
-                console.log(error)
-            }
-        }
-
-        fetchMovie();
-    }, [id]);
 
     return (
         <div>

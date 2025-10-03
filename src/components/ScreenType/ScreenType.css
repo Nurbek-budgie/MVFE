@@ -35,11 +35,11 @@
   gap: 10px;
 }
 
-.screen-showtime {
+/* .screen-showtime {
   background-color: #004e6b;
   padding: 5px;
   border-radius: 5px;
-}
+} */
 
 .screen-showtime:hover {
   text-decoration: underline;

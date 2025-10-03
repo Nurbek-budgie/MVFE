@@ -1,7 +1,11 @@
 import type React from "react";
 import './ScreenType.css'
+import ScreeningButton from "../ScreeningButton/ScreeningButton";
 
 type ShowTime = {
+    screeningId: number;
+    screenName: string;
+    basePrice: number;
     time: string;
 };
 
@@ -38,7 +42,14 @@ const ScreenType: React.FC<Props> = ({ theaters }) => {
                             <div className="screen-showtime-list">
                                 {movie.showtimes.map((showtime, index) => (
                                     <div key={index} className="screen-showtime">
-                                        {showtime.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        {/* {showtime.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} */}
+                                        {<ScreeningButton screening={{
+                                            id: showtime.screeningId,
+                                            startTime: showtime.time,
+                                            basePrice: showtime.basePrice,
+                                            movieTitle: movie.movieName,
+                                            screenName: showtime.screenName,
+                                        }} />}
                                     </div>
                                 ))}
                             </div>

@@ -39,7 +39,7 @@ const ScreeningButton: React.FC<ScreeningButtonProps> = ({ screening }) => {
   const {data: seats = [], isLoading} = useQuery<Seat[]>({
     queryKey: ['screening-seats'],
     queryFn: async() => {
-      const res = await fetch('https://localhost:7109/api/screenings/${screening.id}/seats');
+      const res = await fetch(`https://localhost:7109/api/screenings/${screening.id}/seats`);
       if(!res.ok) throw new Error("failed to fetch");
       const data = await res.json();
       return data.seats;
@@ -65,7 +65,8 @@ const ScreeningButton: React.FC<ScreeningButtonProps> = ({ screening }) => {
       };
 
       const res = await fetch('https://localhost:7109/api/reservations', {
-        method: 'Post',
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
       });
 
