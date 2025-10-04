@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import ScreenType from '../../components/ScreenType/ScreenType';
 import './IMax.css'
-import { useEffect, useState } from "react";
 
 type ShowTime = {
     screeningId: number;
@@ -33,9 +32,6 @@ function IMax() {
             return res.json();
         },
     });
-    //https://localhost:7109/api/screens/type/IMAX
-
-
 
     return (
         <div className="imax-container">

@@ -42,7 +42,8 @@ function MovieDetails() {
     const queryClient = useQueryClient();
     const { id } = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    // const [movie, setMovie] = useState<Movie | null>(null);
+    const [showDescription, setShowDescription] = useState(false);
+
     const [selectedScreening, setSelectedScreening] = useState<Screening | null>(null);
     const { data: movie, isLoading, isError } = useQuery<Movie>({
         queryKey: ['movie-theaters', id],
@@ -52,14 +53,6 @@ function MovieDetails() {
             return res.json();
         },
     });
-    // const { data: movie } = useQuery<Movie>({
-    //     queryKey: ['movie'],
-    //     queryFn: async () => {
-    //         const res = await fetch(`https://localhost:7109/api/movies/${id}`);
-    //         if (!res.ok) throw new Error("Failed to fetch");
-    //         return res.json();
-    //     },
-    // });
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Error fetching movie theaters</p>;
 
@@ -78,13 +71,22 @@ function MovieDetails() {
     return (
         <div>
             <div className="movie-detail-container">
-                <div className="movie-detail-card">
+                <div className={`movie-detail-card ${showDescription ? "show-desc" : ""}`}>
                     <img
                         src={`https://localhost:7109${movie?.trailerUrl}`}
                         alt={movie?.title}
                         className="movie-trailer"
                     />
                     <h3>{movie?.title}</h3>
+                    <div className="movie-about" onClick={() => setShowDescription(true)}>About</div>
+                    <div className="movie-description">
+                        <h2>Year: {movie?.releaseDate ? new Date(movie.releaseDate).toDateString() : "N/A"}</h2>
+                        <h2>Cast: {movie?.cast}</h2>
+                        <h2>Language: {movie?.language}</h2>
+                        <h2>Duration: {movie?.duration}</h2>
+                        <h2>Description: {movie?.description}</h2>
+                        <button onClick={() => setShowDescription(false)}>Close</button>
+                    </div>
                 </div>
 
                 <div className="movie-detail-date">
